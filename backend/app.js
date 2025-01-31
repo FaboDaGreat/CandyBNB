@@ -6,7 +6,9 @@ const csurf = require('csurf');
 const helmet = require('helmet');
 const cookieParser = require('cookie-parser');
 // backend/app.js
+const { ValidationError } = require('sequelize');
 const routes = require('./routes');
+
 
 // ...
 const { environment } = require('./config');
@@ -56,7 +58,7 @@ app.use((_req, _res, next) => {
 
 // backend/app.js
 // ...
-const { ValidationError } = require('sequelize');
+
 
 // ...
 
