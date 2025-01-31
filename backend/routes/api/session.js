@@ -1,10 +1,11 @@
 // backend/routes/api/session.js
-const express = require('express')
-const { check } = require('express-validator');
+const express = require('express');
 const { Op } = require('sequelize');
-const { handleValidationErrors } = require('../../utils/validation');
 const bcrypt = require('bcryptjs');
 const { setTokenCookie, restoreUser } = require('../../utils/auth');
+const { check } = require('express-validator');
+const { handleValidationErrors } = require('../../utils/validation');
+
  const { User } = require('../../db/models');
 const router = express.Router();
 
@@ -56,10 +57,7 @@ router.post('/', async (req, res, next) => {
   // backend/routes/api/session.js
 // ...
 // Log in
-router.post(
-  '/',
-  validateLogin,
-  async (req, res, next) => {
+router.post('/', validateLogin, async (req, res, next) => {
     const { credential, password } = req.body;
 
     const user = await User.unscoped().findOne({
