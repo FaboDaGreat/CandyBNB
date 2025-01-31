@@ -1,14 +1,11 @@
-// backend/routes/api/users.js
 const express = require('express')
 const router = express.Router();
-// backend/routes/api/users.js
-// ...
+const bcrypt = require('bcryptjs');
+const { User } = require('../../db/models');
 const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
-// ...
 
-// backend/routes/api/users.js
-// ...
+//middleware
 const validateSignup = [
     check('email')
       .exists({ checkFalsy: true })
@@ -30,10 +27,7 @@ const validateSignup = [
   ];
 
   // Sign up
-router.post(
-    '/',
-    validateSignup,
-    async (req, res) => {
+router.post('/', validateSignup, async (req, res) => {
       const { email, password, username } = req.body;
       const hashedPassword = bcrypt.hashSync(password);
       const user = await User.create({ email, username, hashedPassword });
