@@ -5,12 +5,10 @@ const cors = require('cors');
 const csurf = require('csurf');
 const helmet = require('helmet');
 const cookieParser = require('cookie-parser');
-// backend/app.js
 const { ValidationError } = require('sequelize');
 const routes = require('./routes');
 
 
-// ...
 const { environment } = require('./config');
 const isProduction = environment === 'production';
 const app = express();
