@@ -36,8 +36,7 @@ const setTokenCookie = (res, user) => {
   };
 
   
-  // backend/utils/auth.js
-// ...
+ 
 
 const restoreUser = (req, res, next) => {
     // token parsed from cookies
@@ -68,9 +67,7 @@ const restoreUser = (req, res, next) => {
   };
 
   
-  // backend/utils/auth.js
-// ...
-
+  // middle ware
 // If there is no current user, return an error
 const requireAuth = function (req, _res, next) {
     if (req.user) return next();

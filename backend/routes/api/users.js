@@ -1,11 +1,12 @@
 const express = require('express')
-const router = express.Router();
 const bcrypt = require('bcryptjs');
-const { User } = require('../../db/models');
+const { setTokenCookie, restoreUser } = require('../../utils/auth'); // utility imports
 const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
+const { User } = require('../../db/models'); //sequelize imports
 
-//middleware
+const router = express.Router();
+//protect the incoming data for incoming routes
 const validateSignup = [
     check('email')
       .exists({ checkFalsy: true })
