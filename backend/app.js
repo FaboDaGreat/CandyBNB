@@ -1,20 +1,29 @@
+//imports
 const express = require('express');
 require('express-async-errors');
+const routes = require('./routes');
+
+//security
 const morgan = require('morgan');
 const cors = require('cors');
 const csurf = require('csurf');
 const helmet = require('helmet');
+//utility imports
 const cookieParser = require('cookie-parser');
-const { ValidationError } = require('sequelize');
-const routes = require('./routes');
-
-
 const { environment } = require('./config');
+const { ValidationError } = require('sequelize');
+
 const isProduction = environment === 'production';
+
+
+
+
+// express application
 const app = express();
-app.use(morgan('dev'));
-app.use(cookieParser());
-app.use(express.json());
+// middleware
+app.use(morgan('dev')); //security
+app.use(cookieParser());// parse cookies from headers
+app.use(express.json()); //allow us to use json in req/res
 // Security Middleware
 if (!isProduction) {
   // enable cors only in development
@@ -39,11 +48,6 @@ app.use(
   })
 );
 app.use(routes); // Connect all the routes
-// backend/app.js
-// ...
-
-// backend/app.js
-// ...
 
 // Catch unhandled requests and forward to error handler.
 app.use((_req, _res, next) => {
@@ -54,11 +58,6 @@ app.use((_req, _res, next) => {
   next(err);
 });
 
-// backend/app.js
-// ...
-
-
-// ...
 
 // Process sequelize errors
 app.use((err, _req, _res, next) => {
@@ -74,8 +73,6 @@ app.use((err, _req, _res, next) => {
   next(err);
 });
 
-// backend/app.js
-// ...
 // Error formatter
 app.use((err, _req, res, _next) => {
   res.status(err.status || 500);

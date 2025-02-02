@@ -1,15 +1,27 @@
-const router = require('express').Router();
-const { setTokenCookie } = require('../../utils/auth.js');
-const { User } = require('../../db/models');
-const { restoreUser } = require('../../utils/auth.js');
+const router = require('express').Router(); // sequelize import
+const sessionRouter = require('./session.js');
+const usersRouter = require('./users.js');
+const { User } = require('../../db/models'); //express import
+
+// middleware imports
+const { restoreUser, setTokenCookie, requireAuth} = require('../../utils/auth.js');
 
 
+//middleware
+router.use(restoreUser);
 
+// routes for api
+router.use('/session', sessionRouter);
+
+router.use('/users', usersRouter);
+//routes
 router.post('/test', function(req, res) {
     res.json({ requestBody: req.body });
   });
 
-module.exports = router;
+router.post('/test', (req, res) => {
+  res.json({ requestBody: req.body });
+});
 
 
 router.get('/set-token-cookie', async (_req, res) => {
@@ -22,22 +34,13 @@ router.get('/set-token-cookie', async (_req, res) => {
   return res.json({ user: user });
 });
 
-
-
-router.use(restoreUser);
-
-router.get(
-  '/restore-user',
-  (req, res) => {
+router.get('/restore-user', (req, res) => {
     return res.json(req.user);
   }
 );
 
 
 
-router.use(restoreUser);
-
-const { requireAuth } = require('../../utils/auth.js');
 router.get(
   '/require-auth',
   requireAuth,
@@ -49,33 +52,25 @@ router.get(
 // ...
 
 
-// backend/routes/api/index.js
-//const router = require("express").Router();
-//const { restoreUser } = require("../../utils/auth.js");
 
-// Connect restoreUser middleware to the API router
-  // If current user session is valid, set req.user to the user in the database
-  // If current user session is not valid, set req.user to null
-router.use(restoreUser);
-
-module.exports = router;
+//module.exports = router;
 
 // backend/routes/api/index.js
 
-const sessionRouter = require('./session.js');
-const usersRouter = require('./users.js');
-
-// Connect restoreUser middleware to the API router
-  // If current user session is valid, set req.user to the user in the database
-  // If current user session is not valid, set req.user to null
-router.use(restoreUser);
-
-router.use('/session', sessionRouter);
-
-router.use('/users', usersRouter);
-
-router.post('/test', (req, res) => {
-  res.json({ requestBody: req.body });
-});
+//const sessionRouter = require('./session.js');
+//const usersRouter = require('./users.js');
+//
+//// Connect restoreUser middleware to the API router
+//  // If current user session is valid, set req.user to the user in the database
+//  // If current user session is not valid, set req.user to null
+//router.use(restoreUser);
+//
+//router.use('/session', sessionRouter);
+//
+//router.use('/users', usersRouter);
+//
+//router.post('/test', (req, res) => {
+//  res.json({ requestBody: req.body });
+//});
 
 module.exports = router;
