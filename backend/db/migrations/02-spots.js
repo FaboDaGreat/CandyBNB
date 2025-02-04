@@ -1,4 +1,7 @@
 'use strict';
+
+const { sequelize } = require('../models');
+
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
@@ -8,6 +11,16 @@ module.exports = {
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
+      },
+      
+      ownerId: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        unique: true,
+        references: {
+          model: 'Users', 
+          key: 'id',      
+        },
       },
       address: {
         type: Sequelize.STRING(700),
@@ -27,11 +40,11 @@ module.exports = {
         allowNull: false
       },
       lat: {
-        type: Sequelize.DECIMAL(100.00),
+        type: Sequelize.DECIMAL(9, 2),
         allowNull: true
       },
       lng: {
-        type: Sequelize.DECIMAL(100.00),
+        type: Sequelize.DECIMAL(9, 2),
         allowNull: true
       },
       name: {
@@ -44,7 +57,7 @@ module.exports = {
         allowNull: false,
       },
       price: {
-        type: Sequelize.DECIMAL(1000.00),
+        type: Sequelize.DECIMAL(9, 2),
         allowNull: false,
       },
       createdAt: {
