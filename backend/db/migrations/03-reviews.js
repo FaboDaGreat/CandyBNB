@@ -16,8 +16,6 @@ module.exports = {
           model: 'Spots',
           key: 'id',
         },
-
-      },
       userId: {
         type: Sequelize.INTEGER,
         allowNull: false,
@@ -25,14 +23,14 @@ module.exports = {
           model: 'Users',
           key: 'id',
         },
-      },
       review: {
         type: Sequelize.STRING,
         allowNull: false
       },
       stars: {
         type: Sequelize.INTEGER,
-        allowNull: false
+        allowNull: false,
+        type: Sequelize.INTEGER
       },
       createdAt: {
         allowNull: false,
