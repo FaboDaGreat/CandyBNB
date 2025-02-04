@@ -48,14 +48,14 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.DECIMAL,
       allowNull: false,
       validate: {
-        len: [1, 100.00]
+        len: [9, 2]
       },
     },
     lng: {
       type: DataTypes.DECIMAL,
       allowNull: false,
       validate: {
-        len: [1, 100.00]
+        len: [9, 2]
       },
     },
     name: {
@@ -76,6 +76,9 @@ module.exports = (sequelize, DataTypes) => {
     price: {
       type: DataTypes.DECIMAL,
       allowNull: false,
+      validate: {
+        len: [9, 2]
+      },
     },
   }, 
   {
