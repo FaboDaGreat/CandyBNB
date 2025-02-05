@@ -3,7 +3,7 @@ const {
   Model
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-  class Spots extends Model {
+  class Spot extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
@@ -11,16 +11,39 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      Spot.belongsTo(models.User, {
+        foreignKey: "ownerId",
+        onDelete: 'cascade',
+        hooks: true
+      });
+      Spot.hasMany(models.Review, {
+        foreignKey: 'SpotId',
+        onDelete: 'cascade',
+        hooks: true
+      });
+      Spot.hasMany(models.Booking, {
+        foreignKey: 'SpotId',
+        onDelete: 'cascade',
+        hooks: true
+      });
+      Spot.hasMany(models.SpotImage, {
+        foreignKey: 'SpotId',
+        onDelete: 'cascade',
+        hooks: true
+      });
     }
   }
-  Spots.init(
-    {
+  Spot.init({
+    ownerId: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
     address: {
       type: DataTypes.STRING,
       allowNull: false,
-      unique: true,
+      // unique: true,
       validate: {
-        len: [4, 700]
+        // len: [4, 700]
       },
     },
     city: {
@@ -48,42 +71,41 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.DECIMAL,
       allowNull: false,
       validate: {
-        len: [9, 2]
+        // len: [2, 6]
       },
     },
     lng: {
       type: DataTypes.DECIMAL,
       allowNull: false,
       validate: {
-        len: [9, 2]
+        // len: [2, 6]
       },
     },
     name: {
       type: DataTypes.STRING,
       allowNull: false,
-      unique: true,
+      // unique: true,
       validate: {
-        len: [5, 100]
+        // len: [5, 100]
       },
     },
     description: {
       type: DataTypes.STRING,
       allowNull: false,
       validate: {
-        len: [50, 1000]
+        // len: [2, 1000]
       },
     },
     price: {
       type: DataTypes.DECIMAL,
       allowNull: false,
       validate: {
-        len: [9, 2]
       },
     },
-  }, 
-  {
-    sequelize,
-    modelName: 'Spots',
-  });
-  return Spots;
+  },
+    {
+      sequelize,
+      modelName: 'Spot',
+    });
+  return Spot;
 };
