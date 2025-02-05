@@ -11,42 +11,39 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-Spot.belongsTo(models.User, {
-  foreignKey: "ownerId",
-  onDelete: 'cascade',
+      Spot.belongsTo(models.User, {
+        foreignKey: "ownerId",
+        onDelete: 'cascade',
         hooks: true
-});
-Spot.hasMany(models.Review, {
-  foreignKey: 'SpotId',
-  onDelete: 'cascade',
-  hooks: true
-});
-Spot.hasMany(models.Booking, {
-  foreignKey: 'SpotId',
-  onDelete: 'cascade',
-  hooks: true
-});
-Spot.hasMany(models.SpotImage, {
-  foreignKey: 'SpotId',
-  onDelete: 'cascade',
-  hooks: true
-});
+      });
+      Spot.hasMany(models.Review, {
+        foreignKey: 'SpotId',
+        onDelete: 'cascade',
+        hooks: true
+      });
+      Spot.hasMany(models.Booking, {
+        foreignKey: 'SpotId',
+        onDelete: 'cascade',
+        hooks: true
+      });
+      Spot.hasMany(models.SpotImage, {
+        foreignKey: 'SpotId',
+        onDelete: 'cascade',
+        hooks: true
+      });
     }
   }
-  Spot.init(
-  {
-    
+  Spot.init({
     ownerId: {
-      type: DataType.INTEGER,
+      type: DataTypes.INTEGER,
       allowNull: false,
-      unique: true
     },
     address: {
       type: DataTypes.STRING,
       allowNull: false,
-      unique: true,
+      // unique: true,
       validate: {
-        len: [4, 700]
+        // len: [4, 700]
       },
     },
     city: {
@@ -74,42 +71,41 @@ Spot.hasMany(models.SpotImage, {
       type: DataTypes.DECIMAL,
       allowNull: false,
       validate: {
-        len: [9, 2]
+        // len: [2, 6]
       },
     },
     lng: {
       type: DataTypes.DECIMAL,
       allowNull: false,
       validate: {
-        len: [9, 2]
+        // len: [2, 6]
       },
     },
     name: {
       type: DataTypes.STRING,
       allowNull: false,
-      unique: true,
+      // unique: true,
       validate: {
-        len: [5, 100]
+        // len: [5, 100]
       },
     },
     description: {
       type: DataTypes.STRING,
       allowNull: false,
       validate: {
-        len: [50, 1000]
+        // len: [2, 1000]
       },
     },
     price: {
       type: DataTypes.DECIMAL,
       allowNull: false,
       validate: {
-        len: [9, 2]
       },
     },
-  }, 
-  {
-    sequelize,
-    modelName: 'Spot',
-  });
+  },
+    {
+      sequelize,
+      modelName: 'Spot',
+    });
   return Spot;
 };
