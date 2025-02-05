@@ -4,6 +4,12 @@ const router = express.Router();
 const apiRouter = require('./api');
 router.use('/api', apiRouter);
 
+
+const spotRouter = require('./spot');
+
+
+router.use('/api/spot', spotRouter);
+
 // ...
 // Add a XSRF-TOKEN cookie
 router.get("/api/csrf/restore", (req, res) => {
@@ -14,6 +20,12 @@ router.get("/api/csrf/restore", (req, res) => {
   });
 });
 // ...
+
+
+
+
+
+module.exports = router
 
 
 
