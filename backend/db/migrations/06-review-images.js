@@ -4,24 +4,32 @@ module.exports = {
   async up(queryInterface, Sequelize) {
     await queryInterface.createTable('ReviewImages', {
       id: {
+        type: Sequelize.INTEGER,
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.INTEGER
-      },
-      reviewId: {
-        type: Sequelize.INTEGER
       },
       url: {
         type: Sequelize.STRING
       },
+      reviewId: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        references: {
+          model: 'Reviews',
+          key: 'id,'
+        },
+      },
+      
       createdAt: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
+        defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
       },
       updatedAt: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
+        defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
       }
     });
   },
