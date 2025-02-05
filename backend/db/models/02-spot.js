@@ -11,27 +11,33 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-Spot.belongsTo(models.Review, {
-  foreignKey: "Id"
-})
-Spot.belongsTo(models.SpotImage, {
-  foreignKey: "SpotId"
-})
-Spot.belongsTo(models.Booking, {
-  foreignKey: "spotId"
-})
+Spot.belongsTo(models.User, {
+  foreignKey: "ownerId",
+  onDelete: 'cascade',
+        hooks: true
+});
+Spot.hasMany(models.Review, {
+  foreignKey: 'SpotId',
+  onDelete: 'cascade',
+  hooks: true
+});
+Spot.hasMany(models.Booking, {
+  foreignKey: 'SpotId',
+  onDelete: 'cascade',
+  hooks: true
+});
+Spot.hasMany(models.SpotImage, {
+  foreignKey: 'SpotId',
+  onDelete: 'cascade',
+  hooks: true
+});
     }
   }
-  Spots.init(
+  Spot.init(
   {
-    id: {
-      allowNull: false,
-      autoIncrement: true,
-      primaryKey: true,
-      type: Sequelize.INTEGER
-    },
+    
     ownerId: {
-      type: Sequelize.INTEGER,
+      type: DataType.INTEGER,
       allowNull: false,
       unique: true
     },
@@ -103,7 +109,7 @@ Spot.belongsTo(models.Booking, {
   }, 
   {
     sequelize,
-    modelName: 'Spots',
+    modelName: 'Spot',
   });
-  return Spots;
+  return Spot;
 };

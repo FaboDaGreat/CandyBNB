@@ -13,21 +13,44 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
 
       Reviews.belongsTo(models.Spot, {
-        foreignKey: "spotID"
-      })
+        foreignKey: "spotID",
+        onDelete: 'cascade',
+        hooks: true
+      });
 
       Reviews.belongsTo(models.User, {
-        foreignKey: "userID"
-      })
-
+        foreignKey: "userID",
+        onDelete: 'cascade',
+        hooks: true
+      });
+      Reviews.hasOne(models.ReviewImage, {
+        foreignKey: 'reviewId',
+        onDelete: 'cascade',
+        hooks: true
+      });
     }
   }
-  Reviews.init({
-    spotId: DataTypes.INTEGER,
-    userId: DataTypes.INTEGER,
-    review: DataTypes.STRING,
-    stars: DataTypes.INTEGER
-  }, {
+  Reviews.init(
+    {
+     
+      userId: {
+        type: DataTypes.INTEGER,
+        allowNull: false
+      },
+      spotId: {
+        type: DataTypes.INTEGER,
+        allowNull: false
+      },
+      review: {
+        type: DataTypes.STRING,
+        allowNull: false
+      },
+      stars: {
+        type: DataTypes.INTEGER,
+    validate: {
+    len: [1, 5]
+    },
+      }, 
     sequelize,
     modelName: 'Reviews',
   });
