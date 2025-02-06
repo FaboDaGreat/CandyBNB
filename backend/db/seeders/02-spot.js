@@ -25,11 +25,11 @@ module.exports = {
         {
             ownerId: 1,
             address: "555 vscode st",
-            city: "bikini bottom",
-            state: "hawaii",
+            city: "bikini top",
+            state: "alaska",
             country: "usa",
-            lat: 38.8977,
-            lng: -77.0365,
+            lat: 40.8977,
+            lng: -87.0365,
             name: "code editor",
             description:"Best place to code",
             price: 90.00
@@ -40,12 +40,34 @@ module.exports = {
             city: "New York City",
             state: "New York",
             country: "usa",
-            lat: 38.8977,
-            lng: -77.0365,
+            lat: 34.8977,
+            lng: -65.0365,
             name: "A cool group",
-            description:"A place where peopel code",
-            price: 20.00
-        },
+            description:"A place where people have fun",
+            price: 69.00
+        },{
+          ownerId: 3,
+          address: "group 1 apt 3",
+          city: "Buffalo",
+          state: "New York",
+          country: "usa",
+          lat: 58.8977,
+          lng: -59.0365,
+          name: "A cold group",
+          description:"Come here if you want to enjoy snow",
+          price: 56.00
+      },{
+        ownerId: 4,
+        address: "group 8 apt 5",
+        city: "Concrete Jungle",
+        state: "New York",
+        country: "usa",
+        lat: 35.8974,
+        lng: -69.0365,
+        name: "Santa's hood",
+        description:"Heaven is a place on Earth",
+        price: 40.00
+    },
     ], { validate: true });
   },
 
