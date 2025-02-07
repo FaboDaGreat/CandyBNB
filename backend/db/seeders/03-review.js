@@ -15,33 +15,33 @@ module.exports = {
       {
         userId: 1,
         spotId: 1,
-        Review: 'Such a lovely place to stay at',
+        review: 'Such a lovely place to stay at',
         stars: 5,
       },
       {
         userId: 2,
         spotId: 2,
-        Review: 'had fun staying at this place',
+        review: 'had fun staying at this place',
         stars: 4,
       },  {
         userId: 3,
         spotId: 3,
-        Review: 'dificult to find a parking spot but enjoyed the stay',
+        review: 'dificult to find a parking spot but enjoyed the stay',
         stars: 3,
       },  {
         userId: 4,
         spotId: 4,
-        Review: 'the heat was not working, do not recommend!!',
+        review: 'the heat was not working, do not recommend!!',
         stars: 2,
       },  {
         userId: 5,
         spotId: 5,
-        Review: 'got to create so many memories with my family, will definitely come back',
+        review: 'got to create so many memories with my family, will definitely come back',
         stars: 5,
       },  {
         userId: 6,
         spotId: 6,
-        Review: 'the owner did not cooperate at all, were up all night in cold',
+        review: 'the owner did not cooperate at all, were up all night in cold',
         stars: 1,
       },
     ], { validate: true });
