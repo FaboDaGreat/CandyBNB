@@ -5,10 +5,7 @@ const apiRouter = require('./api');
 router.use('/api', apiRouter);
 
 
-const spotRouter = require('./spot');
 
-
-router.use('/api/spot', spotRouter);
 
 // ...
 // Add a XSRF-TOKEN cookie
