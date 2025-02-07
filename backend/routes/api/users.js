@@ -26,7 +26,41 @@ const validateSignup = [
       .withMessage('Password must be 6 characters or more.'),
     handleValidationErrors
   ];
+  
+// Get the Current User
+router.get('/api/session', async (req, res) => {
+  const { user } = req;
+  if (user) {
+      const safeUser = {
+          id: user.id,
+          firstName: user.firstName,
+          lastName: user.lastName,
+          email: user.email,
+          username: user.username
+      };
+      return res.json({ user: safeUser });
+  } else {
+      return res.json({ user: null });
+  }
+});
 
+// Log In a User
+router.post('/api/session', async (req, res) => {
+  const { credential, password } = req.body;
+  const user = users.find(user => (user.email === credential || user.username === credential) && user.password === password);
+  if (user) {
+    req.session.user = {
+      id: user.id,
+      firstName: user.firstName,
+      lastName: user.lastName,
+      email: user.email,
+      username: user.username
+    };
+    res.status(200).json({ user: req.session.user });
+  } else {
+    res.status(401).json({ message: 'Invalid credentials' });
+  }
+});
   // Sign up
 router.post('/', validateSignup, async (req, res) => {
       const { email, password, username } = req.body;
@@ -46,4 +80,5 @@ router.post('/', validateSignup, async (req, res) => {
       });
     }
   );
+
 module.exports = router;
