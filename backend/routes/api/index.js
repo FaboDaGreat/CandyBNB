@@ -1,10 +1,12 @@
 const router = require('express').Router(); // sequelize import
 const sessionRouter = require('./session.js');
 const usersRouter = require('./users.js');
+const spotsRouter = require('./spots.js');
 const { User } = require('../../db/models'); //express import
 
 // middleware imports
 const { restoreUser, setTokenCookie, requireAuth} = require('../../utils/auth.js');
+
 
 
 //middleware
@@ -14,6 +16,7 @@ router.use(restoreUser);
 router.use('/session', sessionRouter);
 
 router.use('/users', usersRouter);
+router.use('/spots', spotsRouter); 
 //routes
 router.post('/test', (req, res) => {
   res.json({ requestBody: req.body });
