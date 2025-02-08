@@ -4,7 +4,7 @@ const usersRouter = require('./users.js');
 const spotsRouter = require('./spots.js');
 const reviewsRouter = require('./reviews.js');
 const { User } = require('../../db/models'); //express import
-
+const bookingsRouter = require('./bookings.js');
 // middleware imports
 const { restoreUser, setTokenCookie, requireAuth} = require('../../utils/auth.js');
 
@@ -15,7 +15,7 @@ router.use(restoreUser);
 
 // routes for api
 router.use('/session', sessionRouter);
-
+router.use('/bookings', bookingsRouter);
 router.use('/users', usersRouter);
 
 router.use('/spots', spotsRouter); 
