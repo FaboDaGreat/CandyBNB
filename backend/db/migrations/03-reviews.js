@@ -15,7 +15,7 @@ module.exports = {
         autoIncrement: true,
       },
       userId: {
-        type: Sequelize.INTEGER(50),
+        type: Sequelize.INTEGER,
         allowNull: false,
         references: {
           model: 'Users',
@@ -23,7 +23,7 @@ module.exports = {
         }
         },
       spotId: {
-        type: Sequelize.INTEGER(50),
+        type: Sequelize.INTEGER,
         allowNull: false,
         references: {
           model: 'Spots',
@@ -36,7 +36,7 @@ module.exports = {
         allowNull: false
       },
       stars: {
-        type: Sequelize.INTEGER(5),
+        type: Sequelize.INTEGER,
         allowNull: false,
       },
       createdAt: {
