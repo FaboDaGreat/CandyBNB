@@ -13,13 +13,13 @@ module.exports = (sequelize, DataTypes) => {
         static associate(models) {
 
             Review.belongsTo(models.Spot, {
-                foreignKey: "spotId",
+                foreignKey: 'spotId',
                 onDelete: 'cascade',
                 hooks: true
             });
 
             Review.belongsTo(models.User, {
-                foreignKey: "userId",
+                foreignKey: 'userId',
                 onDelete: 'cascade',
                 hooks: true
             });
