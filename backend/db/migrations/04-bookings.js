@@ -17,7 +17,7 @@ module.exports = {
         primaryKey: true,
       },
       spotId: {
-        type: Sequelize.INTEGER(50),
+        type: Sequelize.INTEGER,
         allowNull: false,
         references: {
           model: 'Spots',
@@ -26,7 +26,7 @@ module.exports = {
 
       },
       userId: {
-        type: Sequelize.INTEGER(50),
+        type: Sequelize.INTEGER,
         allowNull: false,
         references: {
           model: 'Users',
@@ -34,11 +34,11 @@ module.exports = {
         },
       },
       startDate: {
-        type: Sequelize.DATE,
+        type: Sequelize.STRING,
         allowNull: false,
       },
       endDate: {
-        type: Sequelize.DATE,
+        type: Sequelize.STRING,
         allowNull: false,
       },
       createdAt: {
