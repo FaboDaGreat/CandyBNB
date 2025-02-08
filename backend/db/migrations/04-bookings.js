@@ -17,7 +17,7 @@ module.exports = {
         primaryKey: true,
       },
       spotId: {
-        type: Sequelize.INTEGER(50),
+        type: Sequelize.INTEGER,
         allowNull: false,
         references: {
           model: 'Spots',
@@ -26,7 +26,7 @@ module.exports = {
 
       },
       userId: {
-        type: Sequelize.INTEGER(50),
+        type: Sequelize.INTEGER,
         allowNull: false,
         references: {
           model: 'Users',
