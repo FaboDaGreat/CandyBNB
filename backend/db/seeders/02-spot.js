@@ -57,7 +57,7 @@ module.exports = {
           description:"Come here if you want to enjoy snow",
           price: 56.00
       },{
-        ownerId: 4,
+        ownerId: 3,
         address: "group 8 apt 5",
         city: "Concrete Jungle",
         state: "New York",
