@@ -5,7 +5,11 @@ const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
 const { User } = require('../../db/models'); //sequelize imports
 
+
+
 const router = express.Router();
+
+
 //protect the incoming data for incoming routes
 const validateSignup = [
     check('email')
@@ -27,6 +31,7 @@ const validateSignup = [
     handleValidationErrors
   ];
   
+  
 // Get the Current User
 router.get('/api/session', async (req, res) => {
   const { user } = req;
@@ -45,7 +50,7 @@ router.get('/api/session', async (req, res) => {
 });
 
 // Log In a User
-router.post('/api/session', async (req, res) => {
+router.post('/api/session', requireAuth, async (req, res) => {
   const { credential, password } = req.body;
   const user = users.find(user => (user.email === credential || user.username === credential) && user.password === password);
   if (user) {
