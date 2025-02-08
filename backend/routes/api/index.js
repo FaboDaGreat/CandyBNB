@@ -5,6 +5,8 @@ const spotsRouter = require('./spots.js');
 const reviewsRouter = require('./reviews.js');
 const { User } = require('../../db/models'); //express import
 const bookingsRouter = require('./bookings.js');
+const spotImagesRouter = require('./spotImages.js');
+const reviewImagesRouter = require('./reviewImages.js');
 // middleware imports
 const { restoreUser, setTokenCookie, requireAuth} = require('../../utils/auth.js');
 
@@ -17,9 +19,10 @@ router.use(restoreUser);
 router.use('/session', sessionRouter);
 router.use('/bookings', bookingsRouter);
 router.use('/users', usersRouter);
-
+router.use('/spotImages', spotImagesRouter);
 router.use('/spots', spotsRouter); 
 router.use('/reviews', reviewsRouter); 
+router.use('/reviewImages', reviewImagesRouter); 
 //routes
 router.post('/test', (req, res) => {
   res.json({ requestBody: req.body });
