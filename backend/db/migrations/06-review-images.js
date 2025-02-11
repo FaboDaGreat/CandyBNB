@@ -17,7 +17,8 @@ module.exports = {
         primaryKey: true,
       },
       url: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING(500),
+        allowNull: false
       },
       reviewId: {
         type: Sequelize.INTEGER,

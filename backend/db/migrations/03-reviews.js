@@ -31,11 +31,11 @@ module.exports = {
 
         },
       review: {
-        type: Sequelize.STRING(50),
+        type: Sequelize.STRING(500),
         allowNull: false
       },
       stars: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.INTEGER(5),
         allowNull: false,
       },
       createdAt: {
