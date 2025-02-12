@@ -26,11 +26,12 @@ module.exports = {
         },
       },
       url: {
-        type: Sequelize.STRING(300),
+        type: Sequelize.STRING(500),
         allowNull: false,
       },
       preview: {
-        type: Sequelize.BOOLEAN
+        type: Sequelize.BOOLEAN,
+        default: false
       },
       createdAt: {
         allowNull: false,
