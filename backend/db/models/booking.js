@@ -20,31 +20,35 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: "spotId",
         onDelete: "CASCADE",
         hooks: true
-    });
+      });
+    }
   }
-}
   Booking.init(
     {
 
-    spotId: {
-      type: DataTypes.INTEGER,
-      allowNull: false
-    },
-    userId: {
-      type: DataTypes.INTEGER,
-      allowNull: false
-    },
-    startDate: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      isDate: true
-    },
-    endDate: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      isDate: true
-    },
-  }, {
+      spotId: {
+        type: DataTypes.INTEGER,
+        allowNull: false
+      },
+      userId: {
+        type: DataTypes.INTEGER,
+        allowNull: false
+      },
+      startDate: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate: {
+          isDate: true
+        }
+      },
+      endDate: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate: {
+          isDate: true
+        }
+      },
+    }, {
     sequelize,
     modelName: 'Booking',
   });
