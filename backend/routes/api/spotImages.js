@@ -1,5 +1,5 @@
-// const express = require('express');
-// const router = express.Router();
+const express = require('express');
+const router = express.Router();
 // const { requireAuth } = require('../utils/auth'); // Authentication middleware
 // const { SpotImage, Spot } = require('../db/models');  // Your models
 
@@ -23,4 +23,4 @@
 
 
 
-// module.exports = router;
+module.exports = router;

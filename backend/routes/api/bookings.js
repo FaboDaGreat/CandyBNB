@@ -1,5 +1,5 @@
-// const express = require('express');
-// const router = express.Router();
+const express = require('express');
+const router = express.Router();
 // const { Booking, Spot, User } = require('../db/models'); // Adjust based on your models
 // const { requireAuth } = require('../utils/auth'); // Middleware for authentication
 
@@ -96,4 +96,4 @@
 //     res.status(200).json({ message: "Successfully deleted" });
 // });
 
-// module.exports = router;
+module.exports = router;

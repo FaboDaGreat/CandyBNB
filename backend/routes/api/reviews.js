@@ -1,21 +1,11 @@
-// const express = require("express")
-// const router = express.Router();
+const express = require("express")
+const router = express.Router();
 // const { requireAuth } = require('../../utils/auth');
 // const {check, validationResult} = require('express-validator');
 // const { Review } = require('../../db/models');
 
 
-// // Get all reviews
-// router.get('/', async (req, res, next) => {
-//     try {
-//         const review = await Review.findAll();
-//         return res.json({ review });
-//     } catch (error) {
-//         next(error);
-//     }
 
-
-// });
 
 // router.get('/:id', async (req, res, next) => {
 //     const { id } = req.params;

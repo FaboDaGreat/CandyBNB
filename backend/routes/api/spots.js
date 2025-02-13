@@ -1,8 +1,49 @@
-// const express = require("express")
-// // const bcrypt = require('bcryptjs');
-// const { requireAuth } = require('../../utils/auth.js');
-// // const { Spot } = require('../../db/models')
-// const router = express.Router();
+const express = require("express")
+const { requireAuth } = require('../../utils/auth.js');
+const { Spot, Review, User, ReviewImage } = require('../../db/models');
+const { Model } = require("sequelize");
+const router = express.Router();
+
+
+
+router.get('/:spotId/reviews', async(req ,res, next) => {
+    try {
+        const spotId = req.params.spotId
+        const spot = await Spot.findByPk(spotId);
+
+        if(spot === null){
+
+            const invalidError = new Error("Spot couldn't be found")
+            invalidError.status = 404;
+            throw invalidError
+        }
+
+        console.log(spot)
+        const reviews = await Review.findAll({
+            include: [{
+                model: User,
+                attributes: ["id", 'firstName', "lastName"]
+            },
+            {
+                model: ReviewImage,
+                attributes: ["id", 'url']
+            }
+            ],
+            where: {spotId: spotId}
+        });
+        return res.json({Reviews: reviews})
+        
+    } catch(e) {
+        next(e);
+    }
+})
+
+
+
+// --------------------- BAD CODE UNDER THIS LINE -----------------------
+
+
+
 
 
 // Get all Spots
