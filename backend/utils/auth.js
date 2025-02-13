@@ -33,11 +33,12 @@ const setTokenCookie = (res, user) => {
     });
   
     return token;
-  };
 
+
+  };
   
  
-
+//sign in again if we have previouly signed in before and still have an unexpired token
 const restoreUser = (req, res, next) => {
     // token parsed from cookies
     const { token } = req.cookies;
