@@ -1,9 +1,9 @@
 const express = require('express')
-const bcrypt = require('bcryptjs');
-const { setTokenCookie, requireAuth } = require('../../utils/auth'); // utility imports
+// const bcrypt = require('bcryptjs');
+// const { setTokenCookie, requireAuth } = require('../../utils/auth'); // utility imports
 const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
-const { User } = require('../../db/models'); //sequelize imports
+// const { User } = require('../../db/models'); //sequelize imports
 
 
 
@@ -32,58 +32,58 @@ const validateSignup = [
   ];
   
   
-// Get the Current User
-router.get('/api/session', async (req, res) => {
-  const { user } = req;
-  if (user) {
-      const safeUser = {
-          id: user.id,
-          firstName: user.firstName,
-          lastName: user.lastName,
-          email: user.email,
-          username: user.username
-      };
-      return res.json({ user: safeUser });
-  } else {
-      return res.json({ user: null });
-  }
-});
+// // Get the Current User
+// router.get('/api/session', async (req, res) => {
+//   const { user } = req;
+//   if (user) {
+//       const safeUser = {
+//           id: user.id,
+//           firstName: user.firstName,
+//           lastName: user.lastName,
+//           email: user.email,
+//           username: user.username
+//       };
+//       return res.json({ user: safeUser });
+//   } else {
+//       return res.json({ user: null });
+//   }
+// });
 
-// Log In a User
-router.post('/api/session', requireAuth, async (req, res) => {
-  const { credential, password } = req.body;
-  const user = users.find(user => (user.email === credential || user.username === credential) && user.password === password);
-  if (user) {
-    req.session.user = {
-      id: user.id,
-      firstName: user.firstName,
-      lastName: user.lastName,
-      email: user.email,
-      username: user.username
-    };
-    res.status(200).json({ user: req.session.user });
-  } else {
-    res.status(401).json({ message: 'Invalid credentials' });
-  }
-});
-  // Sign up
-router.post('/', validateSignup, async (req, res) => {
-      const { email, password, username } = req.body;
-      const hashedPassword = bcrypt.hashSync(password);
-      const user = await User.create({ email, username, hashedPassword });
+// // Log In a User
+// router.post('/api/session', requireAuth, async (req, res) => {
+//   const { credential, password } = req.body;
+//   const user = users.find(user => (user.email === credential || user.username === credential) && user.password === password);
+//   if (user) {
+//     req.session.user = {
+//       id: user.id,
+//       firstName: user.firstName,
+//       lastName: user.lastName,
+//       email: user.email,
+//       username: user.username
+//     };
+//     res.status(200).json({ user: req.session.user });
+//   } else {
+//     res.status(401).json({ message: 'Invalid credentials' });
+//   }
+// });
+//   // Sign up
+// router.post('/', validateSignup, async (req, res) => {
+//       const { email, password, username } = req.body;
+//       const hashedPassword = bcrypt.hashSync(password);
+//       const user = await User.create({ email, username, hashedPassword });
   
-      const safeUser = {
-        id: user.id,
-        email: user.email,
-        username: user.username,
-      };
+//       const safeUser = {
+//         id: user.id,
+//         email: user.email,
+//         username: user.username,
+//       };
   
-      await setTokenCookie(res, safeUser);
+//       await setTokenCookie(res, safeUser);
   
-      return res.json({
-        user: safeUser
-      });
-    }
-  );
+//       return res.json({
+//         user: safeUser
+//       });
+//     }
+//   );
 
 module.exports = router;
