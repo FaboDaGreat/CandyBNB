@@ -15,7 +15,10 @@ const validateSignup = [
     check('email')
       .exists({ checkFalsy: true })
       .isEmail()
-      .withMessage('Please provide a valid email.'),
+      .withMessage('Invalid email'),
+    check('username')
+      .exists({ checkFalsy: true})
+      .withMessage('Username is required'),
     check('username')
       .exists({ checkFalsy: true })
       .isLength({ min: 4 })
@@ -28,6 +31,12 @@ const validateSignup = [
       .exists({ checkFalsy: true })
       .isLength({ min: 6 })
       .withMessage('Password must be 6 characters or more.'),
+    check('firstName')
+      .exists({ checkFalsy: true })
+      .withMessage('First Name is required'),
+    check('lastName')
+      .exists({ checkFalsy: true })
+      .withMessage('Last Name is required'),
     handleValidationErrors
   ];
   
@@ -49,37 +58,41 @@ const validateSignup = [
 //   }
 // });
 
-// // Log In a User
-// router.post('/api/session', requireAuth, async (req, res) => {
-//   const { credential, password } = req.body;
-//   const user = users.find(user => (user.email === credential || user.username === credential) && user.password === password);
-//   if (user) {
-//     req.session.user = {
-//       id: user.id,
-//       firstName: user.firstName,
-//       lastName: user.lastName,
-//       email: user.email,
-//       username: user.username
-//     };
-//     res.status(200).json({ user: req.session.user });
-//   } else {
-//     res.status(401).json({ message: 'Invalid credentials' });
-//   }
-// });
+
 // Sign up
 router.post('/', validateSignup, async (req, res, next) => {
   try {
 
       const { email, password, username, firstName, lastName } = req.body;
 
-      const users = await User.findAll()
-      for (let user of users) {
-          if (user.email === email) {
-              const invalidEmail = new Error("User with that email already exists")
-              invalidEmail.status = 500;
-              throw invalidEmail
+      const existingEmail = await User.findOne({
+        where: {
+          email: email
+        }
+      })
+      
+      if (existingEmail !== null) {
+        const invalidEmail = new Error("User already exists");
+        invalidEmail.status = 500;
+        invalidEmail.errors = {
+          "email": "User with that email already exists"
+        }
+        throw invalidEmail;
           }
 
+      const existingUsername = await User.findOne({
+        where: {
+          username: username
+        }
+      })    
+
+      if (existingUsername !== null) {
+        const invalidUsername = new Error("User already exists");
+        invalidUsername.status = 500;
+        invalidUsername.errors = {
+          "username": "User with that username already exists"
+        };
+        throw invalidUsername
       }
 
       const hashedPassword = bcrypt.hashSync(password);
