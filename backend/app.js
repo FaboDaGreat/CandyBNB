@@ -1,7 +1,8 @@
 //imports
-require('dotenv').config();
 
 const express = require('express');
+require('dotenv').config();
+
 require('express-async-errors');
 const routes = require('./routes');
 
@@ -10,6 +11,7 @@ const morgan = require('morgan');
 const cors = require('cors');
 const csurf = require('csurf');
 const helmet = require('helmet');
+
 //utility imports
 const cookieParser = require('cookie-parser');
 const { environment } = require('./config');
@@ -18,10 +20,9 @@ const { ValidationError } = require('sequelize');
 const isProduction = environment === 'production';
 
 
-
-
 // express application
 const app = express();
+
 // middleware
 app.use(morgan('dev')); //security
 app.use(cookieParser());// parse cookies from headers
@@ -49,7 +50,11 @@ app.use(
     }
   })
 );
+
+//Routes!!!
 app.use(routes); // Connect all the routes
+
+//ERROR HANDLING MIDDLE WARE AND ROUTES
 
 // Catch unhandled requests and forward to error handler.
 app.use((_req, _res, next) => {
