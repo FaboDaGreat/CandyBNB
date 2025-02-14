@@ -1,9 +1,9 @@
 const express = require('express')
-// const bcrypt = require('bcryptjs');
-// const { setTokenCookie, requireAuth } = require('../../utils/auth'); // utility imports
+const bcrypt = require('bcryptjs');
+const { setTokenCookie, requireAuth } = require('../../utils/auth'); // utility imports
 const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
-// const { User } = require('../../db/models'); //sequelize imports
+const { User } = require('../../db/models'); //sequelize imports
 
 
 
@@ -66,24 +66,43 @@ const validateSignup = [
 //     res.status(401).json({ message: 'Invalid credentials' });
 //   }
 // });
-//   // Sign up
-// router.post('/', validateSignup, async (req, res) => {
-//       const { email, password, username } = req.body;
-//       const hashedPassword = bcrypt.hashSync(password);
-//       const user = await User.create({ email, username, hashedPassword });
-  
-//       const safeUser = {
-//         id: user.id,
-//         email: user.email,
-//         username: user.username,
-//       };
-  
-//       await setTokenCookie(res, safeUser);
-  
-//       return res.json({
-//         user: safeUser
-//       });
-//     }
-//   );
+// Sign up
+router.post('/', validateSignup, async (req, res, next) => {
+  try {
+
+      const { email, password, username, firstName, lastName } = req.body;
+
+      const users = await User.findAll()
+      for (let user of users) {
+          if (user.email === email) {
+              const invalidEmail = new Error("User with that email already exists")
+              invalidEmail.status = 500;
+              throw invalidEmail
+          }
+
+      }
+
+      const hashedPassword = bcrypt.hashSync(password);
+      const user = await User.create({ email, username, hashedPassword, firstName, lastName });
+
+      const safeUser = {
+          id: user.id,
+          firstName: user.firstName,
+          lastName: user.lastName,
+          email: user.email,
+          username: user.username,
+          
+      };
+
+      await setTokenCookie(res, safeUser);
+      return res.json({
+          user: safeUser
+      });
+
+  } catch (e) {
+      next(e)
+  }
+}
+);
 
 module.exports = router;
