@@ -40,26 +40,8 @@ const validateSignup = [
     handleValidationErrors
   ];
   
-  
-// // Get the Current User
-// router.get('/api/session', async (req, res) => {
-//   const { user } = req;
-//   if (user) {
-//       const safeUser = {
-//           id: user.id,
-//           firstName: user.firstName,
-//           lastName: user.lastName,
-//           email: user.email,
-//           username: user.username
-//       };
-//       return res.json({ user: safeUser });
-//   } else {
-//       return res.json({ user: null });
-//   }
-// });
 
-
-// Sign up
+//SIGN UP
 router.post('/', validateSignup, async (req, res, next) => {
   try {
 
